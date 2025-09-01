@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Fixed</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- bootsrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <style>
+        body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+        .header {
+           
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: yellow;
+        }
+
+        .header .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: purple;
+            color: rgb(255, 255, 255);
+            border-radius: 50%;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== Product Section ===== */
+        .product-container {
+            margin-top: 10%;
+            display: flex;
+            padding: 40px 30px;
+            gap: 40px;
+        }
+
+        .product-image img {
+            width: 100;
+            max-width: 500px;
+            border: 1px solid #ccc;
+        }
+
+        .product-details {
+            max-width: 500px;
+        }
+
+        .product-details h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 22px;
+            color: purple;
+            margin-bottom: 20px;
+        }
+
+        .qty-buttons {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .qty-buttons button {
+            padding: 5px 12px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .qty-buttons input {
+            width: 50px;
+            text-align: center;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .add-to-cart {
+            padding: 12px 25px;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* ===== Cart Sidebar ===== */
+        .cart {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            transition: right 0.3s ease;
+            z-index: 200;
+        }
+
+        .cart.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            margin-bottom: 20px;
+        }
+
+        .subtotal {
+            font-size: 18px;
+            font-weight: bold;
+            color: purple;
+            margin: 15px 0;
+        }
+
+        .cart-buttons button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .view-cart {
+            background-color: #ddd;
+        }
+
+        .checkout {
+            background-color: purple;
+            color: white;
+        }
+        .btnn.hover{
+            background-color: black;
+        }
+
+            footer {
+      background-color: #000;
+      color: white;
+      padding: 40px 20px;
+      margin-top: 5%;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: auto;
+      border-bottom: 1px solid #444;
+      padding-bottom: 40px;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 15px;
+      font-size: 16px;
+      text-transform: uppercase;
+      border-bottom: 2px solid white;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.8;
+      text-decoration: none;
+      display: block;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .footer-logo {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .footer-logo img {
+      width: 150px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .footer-bottom span {
+      display: block;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .footer-container {
+        text-align: center;
+      }
+    }
+        
+
+    </style>
+
+</head>
+
+<body>
+    <div class="head">
+        <p class="con">1/23/25 NEW PRODUCT ANNOUNCEMENT! TheFitnessStore.com has become an authorized
+            PowerBlock dealer! You will find PowerBlock products on our site and in our store.
+            For the finest selectorized dumbbells, kettlebells and barbells,
+            there's only one name - PowerBlock!</p>
+    </div>
+
+    <div class="balckbar">
+        <img src="images/logo.png" alt="" class="logo">
+
+
+        <a href="loginform.html"><i class="form">login/register</i></a>
+
+        <!-- 1 TAB -->
+        <nav>
+            <ul style="position: absolute; left: 20%; font-size: 15px; top: 20%;">
+                <li><a href="index.html">CARDIO ></a>
+                    <ul>
+                        <li><a href="#">HOME EQUIPMENT BY TYPE</a>
+                            <ul>
+                                <li><a href="#">Elliptical Machines</a></li>
+                                <li><a href="#">Inversion</a></li>
+                                <li><a href="#">Upright Bikes</a></li>
+                                <li><a href="#">Recumbent Bikes</a></li>
+                                <li><a href="#">Rowing Machines</a></li>
+                                <li><a href="#">Recumbent Steppers</a></li>
+                                <li><a href="#">Treadmills</a></li>
+                                <li><a href="#">Cycle Trainers</a></li>
+                            </ul>
+                        </li>
+                        <!-- first -->
+                        <li><a href="#">HOME EQUIPMENT BY BRAND</a>
+                            <ul>
+                                <li><a href="#">BODY CRAFTS</a></li>
+                                <li><a href="#">ECHELON FITNESS</a></li>
+                                <li><a href="#">ENDURANCE</a></li>
+                                <li><a href="#">LIFRDICE</a></li>
+                                <li><a href="#">LIFE FITNESS</a></li>
+                                <li><a href="#">NAUTILUS </a></li>
+                                <li><a href="#">SARISS</a></li>
+                                <li><a href="#">SCHWINN</a></li>
+                                <li><a href="#">SIPIRIT</a></li>
+                                <li><a href="#">TEETER</a></li>
+                                <li><a href="#">WATERROWER</a></li>
+                                <li><a href="#">UNIVERSAL HOME GYM EQUIPMENT</a></li>
+                            </ul>
+                        </li>
+                        <!-- second -->
+                        <li><a href="#">COMMERICIAL EQUIPMENT BY TYPE</a>
+                            <ul>
+                                <li><a href="#">ROWERS</a></li>
+                                <li><a href="#">ELLIPITICAL MACHINES</a></li>
+                                <li><a href="#">UPRIGHT BIKES</a></li>
+                                <li><a href="#">RECUMENT BIKES</a></li>
+                                <li><a href="#">RECUMENT STEEPERS</a></li>
+                                <li><a href="#">STEEPERS </a></li>
+                                <li><a href="#">TREADMILSS</a></li>
+
+                            </ul>
+                        </li>
+                        <!-- third -->
+                        <li><a href="#">COMMERCIAL EQUIPMENT BY BRAND</a>
+                            <ul>
+                                <li><a href="#"> BODY CRAFT</a></li>
+                                <li><a href="#">ECHELON FITNESS </a></li>
+                                <li><a href="#"> ENDURANCE</a></li>
+                                <li><a href="#">LANDICE FITNESS</a></li>
+                                <li><a href="#"> SCHWINN FITNESS</a></li>
+                                <li><a href="#"> SPIRIT FITNESS</a></li>
+                                <li><a href="#"> WATER ROWER</a></li>
+
+                            </ul>
+                        </li>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </nav>
+
+        <!-- SCEOND TAB -->
+        <nav>
+            <ul style="position: absolute; left: 28%; font-size: 15px; top: 20%;">
+                <li><a href="gymstystems.html">GYM SYSTEMS ></a>
+                    <ul>
+                        <li><a href="#">BODY SOLID COLLECTIONS</a>
+                            <ul>
+                                <li><a href="#"> BENCHES</a></li>
+                                <li><a href="#"> SINGLE STATION Machines</a></li>
+                                <li><a href="#"> DUAL STATION Machines</a></li>
+                                <li><a href="#">MULTI STATTION GYMS</a></li>
+
+                            </ul>
+                        </li>
+                        <!-- first -->
+                        <li><a href="#">INFLIGHT FITNESS COLLECTIONS</a></li>
+                        <!-- second -->
+                        <li><a href="#">PARADIGM FITNESS COLLECTIONS</a></li>
+                        <!-- third -->
+                        <li><a href="#">BODY CRAFT FITNESS COLLECTION </a></li>
+                        <!-- FOURTH -->
+                        <li><a href="#">SIPIRIT FITNESS COMMERCIAL COLLECTION </a></li>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </nav>
+
+        <!-- 3 TAB -->
+        <nav>
+            <ul style="position: absolute; left: 38%; font-size: 15px; top: 20%;">
+                <li><a href="plate.html">PLATE LOADED></a>
+                    <ul>
+                        <li><a href="#">BODY SOLID COLLECTIONS</a></li>
+                        <!-- first -->
+                        <li><a href="#">PARADGIM FITNESS COLLECTION</a></li>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </nav>
+
+        <!-- 4 TAB -->
+        <nav>
+            <ul style="position: absolute; left: 48%; font-size: 15px; top: 20%;">
+                <li><a href="free.html">FREE WEIGHTS ></a>
+                    <ul>
+                        <li><a href="#">DUMBELLS</a></li>
+                        <!-- first -->
+                        <li><a href="#">OLYMPIC PLATES AND STES</a></li>
+                        <!-- second -->
+                        <li><a href="#">KETILEBELLS</a></li>
+                        <!-- third -->
+                        <li><a href="#">BARS AND COLLARS </a></li>
+                        <!-- FOURTH -->
+                        <li><a href="#">POWERBLOACK SELECTORIZED DUMBBEELLS, KEETTLIBELLS AND BARBELLS</a></li>
+                        <!-- FIFTH  -->
+                        <li><a href="#">BENCHES</a></li>
+                        <!-- SIXTH -->
+                        <li><a href="#">STORAGE</a></li>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </nav>
+
+        <!--  5 TAB -->
+        <nav>
+            <ul style="position: absolute; left: 58%; font-size: 15px; top: 20%;">
+                <li><a href="acess.html">ACCESSORIES ></a>
+                    <ul>
+                        <li><a href="#">ACCESSORIES BY TYPE</a>
+                            <ul>
+                                <li><a href="#"> LIFITING GLOVES</a></li>
+                                <li><a href="#"> LIFITING BELTS</a></li>
+                                <li><a href="#"> LIFITING STRAPS</a></li>
+                                <li><a href="#"> SPORTS MEDIACAL</a></li>
+                                <li><a href="#"> JUMP ROPES</a></li>
+                                <li><a href="#"> BALLS- BOSU EXERCISE ,SLAM ,WALL, MEDICINE </a></li>
+                                <li><a href="#"> FOAM ROLLAERS</a></li>
+                                <li><a href="#"> FITNESS MATS</a></li>
+                                <li><a href="#"> FITNESS CLEANING SUPPLIES</a></li>
+                                <li><a href="#"> CABLE ATTACHMENTS</a></li>
+                                <li><a href="#"> FITNESS CLOTHING</a></li>
+
+                            </ul>
+                        </li>
+                        <!-- first -->
+                        <li><a href="#">ACCESSORIES BY BRAND</a>
+                            <ul>
+                                <li><a href="#"> VALEO PRODUCTS</a></li>
+                                <li><a href="#"> GRIZZILY FITNESS PRODUCTS </a></li>
+                                <li><a href="#">WEAK BALANECE AND BOSU BALACE TRAINERS</a></li>
+                                <li><a href="#"> SPRI PRODUCTS</a></li>
+                                <li><a href="#"> SCHIEK PRODUCTS</a></li>
+                                <li><a href="#">HARBINGER FITNESS PRODUCTS </a></li>
+
+                            </ul>
+                        </li>
+                        <!-- second -->
+                        <li><a href="#">FITNESS POSTERS / BOOKES</a>
+                            <ul>
+                                <li><a href="#"> BRUCE ALGRA</a></li>
+                                <li><a href="#"> FIGHTFITNESS TRHOUGH </a></li>
+                                <li><a href="#">PRODUCTIVE FITNESS PRODUCTS</a></li>
+
+                            </ul>
+                        </li>
+                        <!-- third -->
+                        <li><a href="#">MISCLLEANEOUS ACCESSORIES</a></li>
+                        <!-- FOURTH -->
+                        <li><a href="#">SIPIRIT FITNESS COMMERCIAL COLLECTION </a></li>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </nav>
+
+        <!-- 6 tab -->
+
+        <nav>
+            <ul style="position: absolute; left: 68%; font-size: 15px; top: 20%;">
+                <li><a href="bycycle.html">BYCICLES ></a>
+                    <ul>
+                        <li><a href="#">BYCICLES LINES CARRIED</a></li>
+                        <!-- first -->
+                        <li><a href="#">CLASSIC HIGH WHEELERS</a> </li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+    <div class="header">
+        
+        <div class="cart-icon" onclick="toggleCart()" id="cartIcon" data-count="0" style="position: absolute; left: 90%; top: 20%;">🛒</div>
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-container">
+        <div class="product-image">
+            <img src="images/acc1.webp"
+                alt="Weight Bench">
+        </div>
+        <div class="product-details">
+            <h2>PowerBlock Pro Adjustable Kettlebell 18 - 35 lb</h2>
+            <div class="price">$169.00</div>
+            <div class="qty-buttons">
+                <button onclick="changeQty(-1)">−</button>
+                <input type="number" id="qty" value="1" min="1">
+                <button onclick="changeQty(1)">+</button>
+            </div>
+            <button class="add-to-cart" onclick="addToCart()">ADD TO CART</button>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart" id="cart">
+        <div class="cart-header">
+            <h3>SHOPPING CART</h3>
+            <button onclick="toggleCart()">✖</button>
+        </div>
+      <div class="cart-item" id="cartItem" style="display: none; display: flex; gap: 15px; align-items: center;">
+  <img src="images/acc1.webp" 
+       alt="Bench" 
+       style="width: 70px; height: auto; border: 1px solid #ccc;">
+  <div>
+    <p style="margin: 0;"><strong>PowerBlock PowerBench 2.0 Adjustable Bench</strong></p>
+    <p style="margin: 5px 0;">Qty: <span id="cartQty">1</span> × $349.00</p>
+  </div>
+</div>
+
+        <textarea rows="4" cols="40" placeholder="Special instructions for seller"></textarea>
+        <div class="subtotal">SUBTOTAL: $<span id="subtotal">179.00</span></div>
+        <div class="cart-buttons">
+            <button class="view-cart">VIEW CART</button>
+            <button class="checkout">CHECKOUT</button>
+        </div>
+    </div>
+    </div>
+
+<div class="des" style="height: 900px; width: 100%; background-color: #F9F9F9;">
+    <h1 style="margin-left: 40%; padding-top: 2%; font-size: 25px;">Description</h1>
+   <i> <h1 style="font-size: 15px; padding-top: 3%; padding-left: 10%;">PowerBlock Portable Weight Bench</h1></i>
+   <p style="padding-left: 10%; padding-top: 3%;"> Convenient. Fold out the legs and perform a wide variety of exercises anywhere with PowerBlock’s compact weight bench that’s perfect for at-home or on-the-go workouts. When finished, it’s easy to slide the portable weight bench under a bed or tuck into a closet. The sturdy design makes this a reliable and versatile piece of equipment, while a durable powder-coated finish and vinyl top resist wear. </p>
+    <p style="padding-left: 10%; padding-top: 3%;"> Travel. This bench is sturdier and more durable when compared to other lightweight portable benches. A bench shouldn't wobble and shake when being used. The Portable Weight Bench has a sturdy steel frame and rubber padding to prevent unnecessary movement. </p>
+    <P style="padding-left: 10%; padding-top: 3%;">Specs Dimensions: 40.5″ L x 19″ W x 15″ H</P>
+    <button style="background-color: #ccc; margin-left: 10%;" class="btnn">Easy storage</button>
+    <p style=" padding-left: 10%; padding-top: 2%;" >The Portable Weight Bench has foldable legs that make storage easy. Collapse the legs and store it under your bed, desk table, or in a closet.</p>
+     <button style="background-color: #ccc; margin-left: 10%;" class="btnn">lightweight travel bench</button>
+    <p style="padding-left: 10%; padding-top: 2%;">Weighing under 30 lbs, the Portable Weight Bench is a great bench to use when traveling. With a handle on the side frame, the bench is carriable like a suitcase.</p>
+     <button style="background-color: #ccc; margin-left: 10%;" class="btnn">convinent but durable</button>    
+    <p style="padding-left: 10%; padding-top: 2%;">The Portable Weight Bench doesn't sacrifice durability for its size and weight. Thanks to its powder coat and vinyl finish, this bench can handle rigorous use.</p>
+    </div>
+    
+        <footer>
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Our Location</h4>
+      <p><strong>The Fitness Store</strong><br>
+      1410 Dewey St.<br>
+      Manitowoc, WI 54220<br>
+      Phone: 920-684-8088<br>
+      (Email recommended)</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Information</h4>
+      <a href="#">Bicycles</a>
+      <a href="#">Blog</a>
+      <a href="#">Virtual Store Tour</a>
+      <a href="#">Manitowoc, WI Video</a>
+      <a href="#">About Us</a>
+      <a href="#">Customer Service</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Orders and Returns</a>
+      <a href="#">Contact Us</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Why Buy From Us</h4>
+      <a href="#">Shipping & Returns</a>
+      <a href="#">Secure Shopping</a>
+      <a href="#">International Shipping</a>
+      <a href="#">Affiliates</a>
+      <a href="#">Group Sales</a>
+      <a href="#">Terms of Service</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>My Account</h4>
+      <a href="#">Login / Register</a>
+      <a href="#">View Cart</a>
+      <a href="#">Track My Order</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
+
+  <div class="footer-logo">
+    <img src="images/logo.png" alt="Fitness Store Logo">
+  </div>
+
+  <div class="footer-bottom">
+    <p>Copyright © 2023 The Fitness Store. All Rights Reserved.</p>
+    <span>
+      We’re committed to making our products and services accessible to everyone, including people with disabilities.
+      If you need an accommodation or request for auxiliary aids or services, please contact us via email at
+      <a href="#" style="color:#eee;">john@thefitnessstore.com</a>. We will consider all requests.
+    </span>
+  </div>
+</footer>
+
+
+</body>
+
+</html>
+
+<script>
+    function toggleCart() {
+        document.getElementById('cart').classList.toggle('open');
+    }
+
+    function changeQty(amount) {
+        const qtyInput = document.getElementById('qty');
+        let qty = parseInt(qtyInput.value) + amount;
+        qty = qty < 1 ? 1 : qty;
+        qtyInput.value = qty;
+    }
+
+    function addToCart() {
+        const qty = parseInt(document.getElementById('qty').value);
+        const subtotal = qty * 179;
+        document.getElementById('cartItem').style.display = 'block';
+        document.getElementById('cartQty').textContent = qty;
+        document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+
+        // Update cart icon number
+        document.getElementById('cartIcon').setAttribute('data-count', qty);
+
+        toggleCart();
+    }
+</script>
